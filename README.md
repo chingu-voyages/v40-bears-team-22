@@ -1,14 +1,99 @@
-# voyage-tasks
+<!-- PROJECT TITLE -->
+  <h1 align="center">v40-bears-team-22
+</h1>
+ <h2 2 align="center">
+    App Name
+    <br />
+    </h2>
 
-Your project's `readme` is as important to success as your code. For 
-this reason you should put as much care into its creation and maintenance
-as you would any other component of the application.
+## Application Description
 
-If you are unsure of what should go into the `readme` let this article,
-written by an experienced Chingu, be your starting point - 
-[Keys to a well written README](https://tinyurl.com/yk3wubft).
+A web based platform for .......
 
-And before we go there's "one more thing"! Once you decide what to include
-in your `readme` feel free to replace the text we've provided here.
+## Table of Contents
 
-> Own it & Make it your Own!
+<details>
+<summary>App Names</summary>
+
+- [Application Description](#application-description)
+- [Table of Contents](#table-of-contents)
+- [Project Demo](#demo)
+- [Screenshots](#screenshots)
+- [Technology Stack](#technology-stack)
+- [Features](#features)
+- [How to use the app](#how-to-use-the-app)
+- [Collaborators](#collaborators)
+- [References](#references)
+- [License](#license)
+
+</details>
+
+## Project Demo
+
+View the Demo on [text](https://link)
+
+## Screenshots
+
+
+## Technology Stack
+
+| Technology       | Description                                   |
+| ---------------- | --------------------------------------------- |
+| Material-UI      | React UI library                              |
+| React.js         | JavaScript library                            |
+| ect...           | ect...                    |
+
+
+## Features
+
+1. one
+
+2. two
+
+3. three
+
+## How to use the app
+
+**Step #1** - Clone the project
+
+```bash
+$ git clone https://github.com/chingu-voyages/v40-bears-team-22.git
+```
+
+**Step #2**
+
+```
+cd client
+```
+
+- Install dependencies: `npm i` OR `yarn`
+
+- To start the webapp, run: `npm start` OR `yarn start`
+
+```
+cd backend
+```
+
+- Install dependencies: `npm i` OR `yarn`
+
+- To start the server, run: `npm start` OR `yarn start`
+
+## Contributors
+
+| Name            | Link                                   |
+| --------------- | -------------------------------------- |
+| Sandra Ashipala | https://linkedin.com/in/sandraashipala |
+| b | https://linkedin.com/ |
+| c | https://github.com/ |
+| d | https://linkedin.com/ |
+
+## References
+
+[title](link)
+
+## License
+
+[![License: MIT](https://img.shields.io/badge/License-Apache-yellow.svg)](https://github.com/sandramsc/v40-bears-team-22/blob/main/LICENCE)
+
+delete before project submission--->[Keys to a well written README](https://tinyurl.com/yk3wubft).
+

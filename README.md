@@ -82,7 +82,7 @@ cd backend
 
 | Name            | Link                                   |
 | --------------- | -------------------------------------- |
-| Sandra Ashipala | https://linkedin.com/in/sandraashipala |
+| a | https://github.com/ |
 | b | https://linkedin.com/ |
 | c | https://github.com/ |
 | d | https://linkedin.com/ |

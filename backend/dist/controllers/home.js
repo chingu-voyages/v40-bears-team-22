@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getIndex = void 0;
 const getIndex = (req, res, next) => {
-    res.send('Express + TypeScript Server');
+    res.status(200).json({
+        message: "Welcome to home"
+    });
 };
-exports.getIndex = getIndex;
+exports.default = getIndex;

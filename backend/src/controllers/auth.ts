@@ -1,10 +1,26 @@
 import { Request, Response, NextFunction } from "express";
 import * as bcrypt from "bcrypt";
+import  jwt, { Secret, JwtPayload } from "jsonwebtoken";
+import { env } from "process";
 import AppError from "../errors/custom-error";
 import User from "../models/user";
 
-
-
+// interface IToken{
+//   expiresIn:string;
+//   token:string;
+// }
+// function createToken(user:any): IToken {
+//   const expiresIn = "25d"; // 25 days
+//   const secret = process.env.JWT_SECRET;
+//   const dataStoredInToken: DataStoredInToken = {
+//     _id: user._id,
+//   };
+//   const token = jwt.sign(dataStoredInToken, secret, { expiresIn });
+//   return {
+//     expiresIn,
+//     token,
+//   };
+// }
 
 
 export const postSignup = async (req: Request, res: Response, next: NextFunction) => {
@@ -12,31 +28,31 @@ export const postSignup = async (req: Request, res: Response, next: NextFunction
   const email = req.body.email;
   const password = req.body.password;
 
-  const isRegistered = await User.find({
+  const isRegistered = await User.findOne({
     email
   });
 
   // console.log(isRegistered , "user");
-  if(isRegistered[0]){
+  if (isRegistered) {
     const error = new AppError();
     error.message = 'email already exists';
     error.statusCode = 400;
     return next(error);
   }
 
-  const hashedPassword = await bcrypt.hash(password,12);
+  const hashedPassword = await bcrypt.hash(password, 12);
 
   // console.log(hashedPassword , "HashedPD");
 
-  const newuser  = new User({ 
+  const newuser = new User({
     username,
     email,
-    password:hashedPassword
+    password: hashedPassword
   });
 
   const savedUser = await newuser.save();
 
-  const user =  {
+  const user = {
     username: savedUser.username,
     email: savedUser.email,
     points: savedUser.points,
@@ -48,21 +64,21 @@ export const postSignup = async (req: Request, res: Response, next: NextFunction
 
 
   return res.status(201).json({
-    message:"user created",
-    status:201,
+    message: "user created",
+    status: 201,
     user,
   });
 }
 
 
 export const postLogin = async (req: Request, res: Response, next: NextFunction) => {
-  const {email,password} = req.body;
+  const { email, password } = req.body;
   const foundUser = await User.findOne({
     email
   });
-  console.log(foundUser , "foundUser")
+  // console.log(foundUser , "foundUser")
 
-  if(!foundUser){
+  if (!foundUser) {
     const error = new AppError();
     error.statusCode = 400;
     error.message = "User does not exist or has not signed up.";
@@ -71,14 +87,14 @@ export const postLogin = async (req: Request, res: Response, next: NextFunction)
 
   const checkPassword = bcrypt.compare(password, foundUser.password);
 
-  if(!checkPassword){
+  if (!checkPassword) {
     const error = new AppError();
     error.statusCode = 400;
     error.message = "Credentials not valid.";
     return next(error);
   }
 
-  const user =  {
+  const user = {
     username: foundUser.username,
     email: foundUser.email,
     points: foundUser.points,
@@ -88,8 +104,14 @@ export const postLogin = async (req: Request, res: Response, next: NextFunction)
     skills_to_teach: foundUser.skills_to_teach,
   }
 
-  res.status(200).json({
-    user
+  const token = jwt.sign({ username: user.username, email: user.email }, env.JWT_SECRET as string, { expiresIn: '30d' });
+
+  
+  return res.status(200).json({
+    // user,
+    statusCode: 200,
+    token,
+    message: "user logged in successfully"
   })
 }
 

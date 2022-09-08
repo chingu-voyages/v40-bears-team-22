@@ -37,17 +37,35 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.postLogout = exports.postLogin = exports.postSignup = void 0;
 const bcrypt = __importStar(require("bcrypt"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const process_1 = require("process");
 const custom_error_1 = __importDefault(require("../errors/custom-error"));
 const user_1 = __importDefault(require("../models/user"));
+// interface IToken{
+//   expiresIn:string;
+//   token:string;
+// }
+// function createToken(user:any): IToken {
+//   const expiresIn = "25d"; // 25 days
+//   const secret = process.env.JWT_SECRET;
+//   const dataStoredInToken: DataStoredInToken = {
+//     _id: user._id,
+//   };
+//   const token = jwt.sign(dataStoredInToken, secret, { expiresIn });
+//   return {
+//     expiresIn,
+//     token,
+//   };
+// }
 const postSignup = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const username = req.body.username;
     const email = req.body.email;
     const password = req.body.password;
-    const isRegistered = yield user_1.default.find({
+    const isRegistered = yield user_1.default.findOne({
         email
     });
     // console.log(isRegistered , "user");
-    if (isRegistered[0]) {
+    if (isRegistered) {
         const error = new custom_error_1.default();
         error.message = 'email already exists';
         error.statusCode = 400;
@@ -82,7 +100,7 @@ const postLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, function
     const foundUser = yield user_1.default.findOne({
         email
     });
-    console.log(foundUser, "foundUser");
+    // console.log(foundUser , "foundUser")
     if (!foundUser) {
         const error = new custom_error_1.default();
         error.statusCode = 400;
@@ -105,8 +123,12 @@ const postLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, function
         skills_to_learn: foundUser.skills_to_learn,
         skills_to_teach: foundUser.skills_to_teach,
     };
-    res.status(200).json({
-        user
+    const token = jsonwebtoken_1.default.sign({ username: user.username, email: user.email }, process_1.env.JWT_SECRET, { expiresIn: '30d' });
+    return res.status(200).json({
+        // user,
+        statusCode: 200,
+        token,
+        message: "user logged in successfully"
     });
 });
 exports.postLogin = postLogin;

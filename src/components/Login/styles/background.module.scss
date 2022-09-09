@@ -1,0 +1,16 @@
+@import "../../../sass/partials/config";
+
+.background {
+  background: linear-gradient(
+      to right,
+      rgba($primary-color, 0.5),
+      rgba($primary-color, 0.3)
+    ),
+    url("../../../assets/img/login-and-signup.jpg") center top;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

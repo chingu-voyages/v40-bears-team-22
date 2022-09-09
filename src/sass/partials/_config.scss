@@ -1,0 +1,12 @@
+$primary-color: #7325a3;
+$secondary-color: #1c1d1f;
+@font-face {
+    font-family: 'Oxygen';
+    src: url('../../assets/fonts/Oxygen-Bold.ttf');
+}
+$link-color: #fff;
+$text-color: #acd2cc;
+
+h2{
+    color: $secondary-color;
+}
